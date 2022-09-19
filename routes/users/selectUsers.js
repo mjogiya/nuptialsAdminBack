@@ -29,6 +29,22 @@ router.post('/selectUsers', (req, res) => {
         res.send(result);
         // console.log(err);
     })
+});
+
+router.post('/pendingUsers', (req, res) => {
+    con.query("SELECT * FROM register where request='Pending';", (err, result) => {
+        res.send(result);
+    })
+})
+router.post('/approvedUsers', (req, res) => {
+    con.query("SELECT * FROM register where request='Approved';", (err, result) => {
+        res.send(result);
+    })
+})
+router.post('/rejectedUsers', (req, res) => {
+    con.query("SELECT * FROM register where request='Rejected';", (err, result) => {
+        res.send(result);
+    })
 })
 
 module.exports=router
