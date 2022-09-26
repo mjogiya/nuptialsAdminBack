@@ -39,11 +39,12 @@ con.connect(function(error) {
         console.log('Admin Connected! :) ');
     }
 });
+
 router.get('/login/session', (req, res) => {
-    if(req.session.user) {
-        res.send({userLogedin: true});
+    if(req.session.admin) {
+        res.send({adminLogedin: true});
     } else {
-        res.send({userLogedin : false});
+        res.send({adminLogedin : false});
     }
 });
 router.post('/login', (req, res) => {
@@ -55,16 +56,16 @@ router.post('/login', (req, res) => {
         console.log(err);
         console.log(result);
         if(result.length>0) {
-            req.session.user = result;
-            res.send({userLogedin: true});
+            req.session.admin = result;
+            res.send({adminLogedin: true});
         } else {
-            res.send({userLogedin: false, message: "wrong username or password"});
+            res.send({adminLogedin: false, message: "wrong username or password"});
         }
     });
 });
 router.get('/logout', (req, res) => {
     req.session.destroy();
-    res.send({userLogedin: false})
+    res.send({adminLogedin: false})
 });
 
 module.exports=router

@@ -46,5 +46,27 @@ router.post('/rejectedUsers', (req, res) => {
         res.send(result);
     })
 })
-
+router.post('/male', (req, res) => {
+    con.query("SELECT * FROM register where gender='Male';", (err, result) => {
+        res.send(result);
+    })
+})
+router.post('/female', (req, res) => {
+    con.query("SELECT * FROM register where gender='Female';", (err, result) => {
+        res.send(result);
+    })
+})
+router.post('/userDetails', (req, res) => {
+    con.query("SELECT register.*, userdata.* FROM register INNER JOIN userdata ON register.email = userdata.email where register.email= ?;",
+    [req.body.userid],  (err, result) => {   
+        res.send(result);
+    })
+   
+})
+router.post('/updateRequest', (req, res) => {
+    con.query("UPDATE register set request= ? where email= ?", [req.body.request, req.body.email], (err, result) => {
+        console.log(err);
+        res.send(result);
+    })
+})
 module.exports=router
